@@ -9,7 +9,6 @@ import { Logo } from "@/components/Logo";
 import { SlideCanvas } from "@/components/SlideCanvas";
 import { TemplateGallery } from "@/components/TemplateGallery";
 import { BrandKit } from "@/components/BrandKit";
-import { DemoBanner } from "@/components/DemoBanner";
 
 const SPARKS = [
   { emoji: "🚀", text: "Seed pitch deck for an AI-powered fitness coach app", tag: "Pitch" },
@@ -52,7 +51,6 @@ export default function Home() {
   const [outline, setOutline] = useState<Outline | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [demo, setDemo] = useState(false);
   const [templateId, setTemplateId] = useState("midnight");
   const [brand, setBrand] = useState<Brand>({ enabled: false });
   const [sideTab, setSideTab] = useState<"themes" | "brand">("themes");
@@ -91,14 +89,12 @@ export default function Home() {
     if (!canSubmit) return;
     setLoading(true);
     setError(null);
-    setDemo(false);
     setOutline({ title: prompt || file?.name || "Untitled", slides: [] });
     setStage("outline");
     try {
       await streamJson<Outline>("/api/outline", { source, options: opts }, (m) => {
         if (m.type === "error") return;
         const o = m.data;
-        if (m.demo) setDemo(true);
         setOutline({ title: o?.title ?? "", slides: (o?.slides ?? []).filter((s): s is OutlineSlide => !!s?.title).map((s) => ({ ...s, layout: s.layout ?? "bullets", points: (s.points ?? []).filter(Boolean) })) });
       });
     } catch (e) {
@@ -147,8 +143,6 @@ export default function Home() {
             </div>
           </div>
         </header>
-
-        {demo && <DemoBanner />}
 
         <div className="mx-auto grid max-w-7xl gap-8 px-5 py-8 lg:grid-cols-[1fr_400px]">
           <main>

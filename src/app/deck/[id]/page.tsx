@@ -13,7 +13,6 @@ import { TemplateGallery } from "@/components/TemplateGallery";
 import { BrandKit } from "@/components/BrandKit";
 import { GeniePanel, type GenieMsg } from "@/components/GeniePanel";
 import { Presenter, type PresentMode } from "@/components/Presenter";
-import { DemoBanner } from "@/components/DemoBanner";
 
 type Tab = "content" | "design" | "genie";
 
@@ -56,7 +55,6 @@ function Studio() {
   const [brand, setBrand] = useState<Brand>({ enabled: false });
   const [current, setCurrent] = useState(0);
   const [generating, setGenerating] = useState(false);
-  const [demo, setDemo] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [tab, setTab] = useState<Tab>("content");
   const [designTab, setDesignTab] = useState<"themes" | "brand">("themes");
@@ -136,7 +134,6 @@ function Studio() {
     setDeck({ title: r.pending.outline.title, slides: [] });
     streamJson<Deck>("/api/generate", { outline: r.pending.outline, source: r.source, options: r.options }, (m) => {
       if (m.type === "error") return;
-      if (m.demo) setDemo(true);
       const d = sanitize(m.data);
       setDeck({ title: d.title || r.pending!.outline.title, slides: d.slides });
     })
@@ -194,7 +191,6 @@ function Studio() {
     });
     const j = await res.json();
     if (!res.ok) throw new Error(j.error ?? "Revision failed");
-    if (j.demo) setDemo(true);
     if (slideIndex !== null && j.slide) {
       const old = deck.slides[slideIndex];
       setSlide(slideIndex, { ...j.slide, image: j.slide.layout === "imageText" ? old.image : undefined });
@@ -338,8 +334,6 @@ function Studio() {
             )}
           </div>
         </header>
-
-        {demo && <DemoBanner />}
         {error && <div className="border-b-[1.5px] border-ink bg-red-50 px-4 py-2 text-center text-sm text-red-700">{error}</div>}
 
         <div className="flex min-h-0 flex-1">

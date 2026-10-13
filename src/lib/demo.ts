@@ -64,7 +64,7 @@ function slideFrom(o: OutlineSlide, i: number): Slide {
   const base = { title: o.title, notes: `Talk through: ${p.join("; ")}.` };
   switch (o.layout) {
     case "title":
-      return { ...base, layout: "title", subtitle: "Demo deck — connect a free AI for real content" };
+      return { ...base, layout: "title", subtitle: "A SlideGenie presentation" };
     case "section":
       return { ...base, layout: "section", subtitle: p[0] };
     case "closing":
@@ -120,7 +120,7 @@ export function demoRevise(deck: Deck, instruction: string, slideIndex: number |
     return { ...s, layout: "cards", items: pts.slice(0, 4).map((p, k) => ({ heading: clip(p, 3).replace("…", ""), text: p, icon: ICONS[k] })) };
   };
   const fn = /short|concise|less/.test(ins) ? shorten : /expand|more detail|longer/.test(ins) ? expand : /visual|card|icon/.test(ins) ? visual : null;
-  const msg = fn ? "Applied a basic demo edit. Connect an AI key for real rewrites." : "Demo mode can only tighten, elaborate or visualize slides. Connect an AI key so Genie can grant any wish.";
+  const msg = fn ? "Done — slide updated." : "Genie can tighten, elaborate or visualize slides. Try one of those.";
 
   if (slideIndex !== null) {
     const s = deck.slides[slideIndex];
