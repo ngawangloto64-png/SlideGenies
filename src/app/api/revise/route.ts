@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     if (slideIndex !== null && slideIndex !== undefined) {
       const { output } = await generateText({
         model: getModel(),
-    maxRetries: 5,
+    maxRetries: 2,
         instructions: `You are Genie, SlideGenie's slide assistant, editing ONE slide of a deck. Apply the user's instruction to that slide only and return the full revised slide. Keep the deck's language and tone unless asked otherwise. You may change the layout if the instruction calls for it (e.g. "make it visual").
 ${DESIGN_RULES}`,
         prompt: `Deck title: ${clean.title}
@@ -48,7 +48,7 @@ Instruction: ${instruction}`,
 
     const { output } = await generateText({
       model: getModel(),
-    maxRetries: 5,
+    maxRetries: 2,
       instructions: `You are Genie, SlideGenie's slide assistant. Apply the user's instruction to the whole deck and return the complete revised deck. Preserve slides the instruction does not affect. You may add, remove or reorder slides when asked.
 ${DESIGN_RULES}`,
       prompt: `Current deck (JSON): ${JSON.stringify(clean)}
