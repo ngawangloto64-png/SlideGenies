@@ -20,6 +20,7 @@ export async function POST(req: Request) {
       failure = error;
     },
     model: getModel(),
+    maxRetries: 5,
     instructions: `You are a world-class presentation strategist. Plan a compelling, well-structured presentation outline with a clear narrative arc (hook → context → substance → evidence → call to action).
 ${DESIGN_RULES}`,
     prompt: `${sourceText(source)}

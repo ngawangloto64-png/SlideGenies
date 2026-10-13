@@ -495,7 +495,7 @@ const CHAR_W: Partial<Record<FontKey, number>> = {
 function linesFor(text: string, size: number, width: number, font: FontKey, bold?: boolean) {
   const cw = size * (CHAR_W[font] ?? 0.54) * (bold ? 1.06 : 1);
   const perLine = Math.max(1, Math.floor(width / cw));
-  return text.split("\n").reduce((n, para) => {
+  return (text ?? "").split("\n").reduce((n, para) => {
     // Greedy word wrap.
     let lines = 1,
       cur = 0;
@@ -527,7 +527,34 @@ function shrinkToFit(el: El): El {
   return el;
 }
 
-export function layoutSlide(s: Slide, t: Template, index: number, total: number): SlideRender {
+/** Fill gaps in slides that are still streaming in (or came back incomplete) so layout never crashes. */
+function normalize(s: Slide): Slide {
+  const str = (v: unknown) => (typeof v === "string" ? v : "");
+  const list = (v: unknown) => (Array.isArray(v) ? v.filter((x): x is string => typeof x === "string") : undefined);
+  const col = (c: Slide["left"]) => (c ? { heading: str(c.heading), bullets: list(c.bullets) ?? [] } : undefined);
+  const chart = s.chart && Array.isArray(s.chart.labels) && Array.isArray(s.chart.series)
+    ? {
+        ...s.chart,
+        labels: s.chart.labels.map(str),
+        series: s.chart.series.filter((x) => x && Array.isArray(x.values)).map((x) => ({ name: str(x.name), values: x.values.map((v) => (typeof v === "number" ? v : 0)) })),
+      }
+    : undefined;
+  return {
+    ...s,
+    title: str(s.title),
+    subtitle: s.subtitle === undefined ? undefined : str(s.subtitle),
+    bullets: list(s.bullets),
+    left: col(s.left),
+    right: col(s.right),
+    items: Array.isArray(s.items) ? s.items.filter(Boolean).map((it) => ({ ...it, heading: str(it.heading), text: str(it.text) })) : undefined,
+    stats: Array.isArray(s.stats) ? s.stats.filter(Boolean).map((st) => ({ value: str(st.value), label: str(st.label) })) : undefined,
+    chart: chart?.series.length ? chart : undefined,
+    quote: s.quote === undefined ? undefined : str(s.quote),
+  };
+}
+
+export function layoutSlide(raw: Slide, t: Template, index: number, total: number): SlideRender {
+  const s = normalize(raw);
   const hero = HERO.has(s.layout);
   const onAccentBg = hero && t.heroAccent && t.deco !== "split" && !t.art;
   const c: Ctx = {

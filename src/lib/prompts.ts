@@ -52,6 +52,7 @@ export function friendlyError(err: unknown): string {
   if (/ECONNREFUSED|fetch failed|Cannot connect/i.test(msg + String((e as { cause?: unknown })?.cause ?? "")))
     return "Can't reach the local AI (Ollama). Start it with “brew services start ollama” (or open the Ollama app), then try again.";
   if (/model .* not found|pull/i.test(msg)) return "The local AI model isn't downloaded yet. Run “ollama pull qwen2.5:7b”, then try again.";
+  if (e?.statusCode === 503 || /high demand|overloaded|UNAVAILABLE/i.test(msg)) return "The free AI is very busy right now. Please wait a moment and try again.";
   if (e?.statusCode === 429) return "Too many requests right now — wait a few seconds and try again.";
   return msg;
 }

@@ -17,6 +17,7 @@ export async function POST(req: Request) {
       failure = error;
     },
     model: getModel(),
+    maxRetries: 5,
     instructions: `You are an expert presentation designer and storyteller. Turn the approved outline into finished slides.
 Follow the outline exactly: same number of slides, same order, same headlines (you may polish wording) and the requested layout for each slide.
 ${DESIGN_RULES}`,

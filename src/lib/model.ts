@@ -35,7 +35,7 @@ export function getModel(): LanguageModel {
       return ollama(process.env.OLLAMA_MODEL ?? "qwen2.5:7b");
     }
     case "google":
-      return createGoogleGenerativeAI({ apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY })(process.env.GOOGLE_MODEL ?? "gemini-2.5-flash");
+      return createGoogleGenerativeAI({ apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY })(process.env.GOOGLE_MODEL ?? "gemini-flash-latest");
     default:
       return process.env.AI_MODEL ?? "anthropic/claude-sonnet-5.5";
   }
