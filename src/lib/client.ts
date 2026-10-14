@@ -18,12 +18,12 @@ export type DeckRecord = {
   pending?: { outline: Outline };
 };
 
-const KEY = "slidegenie:decks";
-const LEGACY_KEY = "folio:decks";
+const KEY = "pepeti:decks";
+const LEGACY_KEYS = ["slidegenie:decks", "folio:decks"];
 
 function readAll(): Record<string, DeckRecord> {
   try {
-    return JSON.parse(localStorage.getItem(KEY) ?? localStorage.getItem(LEGACY_KEY) ?? "{}");
+    return JSON.parse(localStorage.getItem(KEY) ?? LEGACY_KEYS.map((k) => localStorage.getItem(k)).find(Boolean) ?? "{}");
   } catch {
     return {};
   }

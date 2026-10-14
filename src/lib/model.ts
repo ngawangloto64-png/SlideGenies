@@ -3,7 +3,7 @@ import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 
 /**
- * Which AI powers SlideGenie. Free options first:
+ * Which AI powers PePeTi. Free options first:
  *  - "ollama":  a model running locally on this computer — free, private, no account.
  *  - "google":  Google Gemini free tier — needs a free key from aistudio.google.com (no card).
  *  - "gateway": Vercel AI Gateway — paid (requires a card on file).

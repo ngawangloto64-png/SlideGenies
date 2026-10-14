@@ -1,24 +1,24 @@
 @import "tailwindcss";
 
-/* SlideGenie brand palette — navy ink, genie blue→purple, sparkle amber. */
+/* PePeTi brand palette — deep blue ink, logo blue, leaf green, spark orange. */
 @theme {
-  --color-paper: #f5f7fc;
-  --color-paper-2: #e9eef9;
+  --color-paper: #f4f8fd;
+  --color-paper-2: #e6eef9;
   --color-card: #ffffff;
-  --color-ink: #12235a;
-  --color-ink-2: #34426e;
-  --color-mute: #6b7593;
-  --color-line: #d6ddee;
-  --color-ember: #6c3fe6;
-  --color-ember-soft: #ece6fd;
-  --color-cobalt: #2f7bff;
-  --color-lime: #ffd66b;
+  --color-ink: #0b3a8c;
+  --color-ink-2: #2f4f86;
+  --color-mute: #66789a;
+  --color-line: #d3e0f2;
+  --color-ember: #1aa67e;
+  --color-ember-soft: #dcf4ec;
+  --color-cobalt: #1366d6;
+  --color-lime: #ffc46b;
 }
 
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-outfit);
+  --font-display: var(--font-fredoka);
 }
 
 :root {
@@ -78,9 +78,9 @@ body {
   color: #fff;
 }
 
-/* Genie gradient text, matching the wordmark */
-.text-genie {
-  background: linear-gradient(95deg, #7a3fe4 0%, #6a4cf0 45%, #2f7bff 100%);
+/* Brand gradient text: logo blue into leaf green */
+.text-brand {
+  background: linear-gradient(95deg, #1366d6 0%, #1e8fe0 50%, #1aa67e 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

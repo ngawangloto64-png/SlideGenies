@@ -22,7 +22,7 @@ const TONES = ["Professional", "Inspiring", "Casual", "Persuasive", "Academic", 
 const LANGS = ["English", "Spanish", "French", "German", "Portuguese", "Italian", "Hindi", "Japanese", "Chinese", "Arabic", "Indonesian"];
 const FEATURES = [
   ["Story map first", "Shape the narrative card by card before any design happens."],
-  ["Ask Genie", "Wish for a change in plain words — one slide or the whole deck."],
+  ["Ask Peti", "Describe a change in plain words — one slide or the whole deck."],
   ["Brand Vault", `Store your logo, colors and fonts once; apply them to all ${TEMPLATES.length} themes.`],
   ["Real charts", "Bar, line and pie charts that stay editable after download."],
   ["Fly-through", "Present on a winding canvas that glides from slide to slide."],
@@ -154,7 +154,7 @@ export default function Home() {
               placeholder="Deck title"
             />
             <p className="mt-2 text-sm text-mute">
-              {loading ? "Genie is mapping your story…" : "Drag to reorder, rewrite headlines, swap layouts — then generate. Every card becomes one slide."}
+              {loading ? "Peti is mapping your story…" : "Drag to reorder, rewrite headlines, swap layouts — then generate. Every card becomes one slide."}
             </p>
             {error && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
 
@@ -275,7 +275,7 @@ export default function Home() {
         </span>
         <h1 className="font-display text-5xl font-bold leading-[1.02] tracking-tight sm:text-7xl">
           Ideas to{" "}
-          <span className="relative inline-block text-genie">
+          <span className="relative inline-block text-brand">
             Slides
             <svg className="absolute -bottom-1.5 left-0 w-full" viewBox="0 0 200 12" preserveAspectRatio="none">
               <path d="M2 9 C 50 2, 150 2, 198 8" stroke="#FFB020" strokeWidth="4" fill="none" strokeLinecap="round" />
@@ -284,7 +284,7 @@ export default function Home() {
           </span>
           ,<br className="sm:hidden" /> Instantly.
         </h1>
-        <p className="mx-auto mt-6 max-w-xl text-lg text-ink-2">Prompt it, paste your notes, or drop a document. Genie maps out your story, designs every slide, and hands back a fully editable deck.</p>
+        <p className="mx-auto mt-6 max-w-xl text-lg text-ink-2">Prompt it, paste your notes, or drop a document. Peti maps out your story, designs every slide, and hands back a fully editable deck.</p>
       </section>
 
       <section className="mx-auto max-w-4xl px-5">
@@ -327,7 +327,7 @@ export default function Home() {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 rows={8}
-                placeholder="Paste notes, an article, a report, meeting minutes… SlideGenie turns long text into a structured deck."
+                placeholder="Paste notes, an article, a report, meeting minutes… PePeTi turns long text into a structured deck."
                 className="field resize-y font-mono text-[13px] leading-relaxed"
               />
               <p className="text-right font-mono text-[11px] text-mute">{text.length.toLocaleString()} chars</p>
@@ -506,7 +506,7 @@ export default function Home() {
       <section id="themes" className="mx-auto mt-20 max-w-6xl scroll-mt-6 px-5 pb-24">
         <div className="mb-5 flex flex-wrap items-baseline justify-between gap-2">
           <h2 className="font-display font-semibold tracking-tight text-4xl">
-            {TEMPLATES.length} themes, <span className="text-genie">one click</span>
+            {TEMPLATES.length} themes, <span className="text-brand">one click</span>
           </h2>
           <span className="text-sm text-mute">
             Default theme: <b className="text-ink">{getTemplate(templateId).name}</b> — switch any time
@@ -515,7 +515,7 @@ export default function Home() {
         <TemplateGallery selected={templateId} onSelect={setTemplateId} />
       </section>
 
-      <footer className="border-t-[1.5px] border-ink py-6 text-center font-mono text-xs text-mute">SlideGenie — Ideas to Slides, Instantly. Downloads open in any major slide app.</footer>
+      <footer className="border-t-[1.5px] border-ink py-6 text-center font-mono text-xs text-mute">PePeTi — Ideas to Slides, Instantly. Downloads open in any major slide app.</footer>
     </div>
   );
 }
@@ -523,7 +523,7 @@ export default function Home() {
 function Steps({ step }: { step: number }) {
   return (
     <ol className="hidden items-center gap-2 font-mono text-[11px] uppercase tracking-wide md:flex">
-      {["Wish", "Story map", "Studio"].map((s, i) => (
+      {["Idea", "Story map", "Studio"].map((s, i) => (
         <li key={s} className="flex items-center gap-2">
           <span className={`flex h-5 w-5 items-center justify-center rounded-full border-[1.5px] border-ink text-[10px] ${i + 1 < step ? "bg-ink text-paper" : i + 1 === step ? "bg-ember text-white" : ""}`}>{i + 1 < step ? "✓" : i + 1}</span>
           <span className={i + 1 === step ? "text-ink" : "text-mute"}>{s}</span>

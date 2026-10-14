@@ -63,7 +63,7 @@ export default function View() {
           </button>
         ))}
         <p className="text-center font-mono text-xs text-mute">
-          Made with SlideGenie ·{" "}
+          Made with PePeTi ·{" "}
           <Link href="/" className="underline">
             create your own deck
           </Link>

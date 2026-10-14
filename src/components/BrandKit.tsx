@@ -45,7 +45,7 @@ export function BrandKit({ brand, onChange }: { brand: Brand; onChange: (b: Bran
     <div className="space-y-4">
       <div>
         <span className="label mb-1 block">Art Blend</span>
-        <p className="mb-2 text-xs text-mute">Blend any SlideGenie artwork into the theme you picked.</p>
+        <p className="mb-2 text-xs text-mute">Blend any PePeTi artwork into the theme you picked.</p>
         <div className="grid grid-cols-3 gap-1.5">
           {(["default", "none", ...ART_CHOICES] as const).map((k) => {
             const active = (brand.art ?? "default") === k;

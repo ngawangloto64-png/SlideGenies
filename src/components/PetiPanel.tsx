@@ -2,19 +2,19 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export type GenieMsg = { role: "user" | "ai"; text: string; scope?: string; error?: boolean };
+export type PetiMsg = { role: "user" | "ai"; text: string; scope?: string; error?: boolean };
 
 const SUGGESTIONS_SLIDE = ["Make this slide more persuasive", "Turn this into a chart", "Simplify for a 10-year-old", "Add a surprising statistic"];
 const SUGGESTIONS_DECK = ["Make the whole deck more concise", "Add a slide about pricing before the closing", "Translate the deck to Spanish", "Rewrite in a bolder, more energetic tone"];
 
 type Props = {
-  messages: GenieMsg[];
+  messages: PetiMsg[];
   busy: boolean;
   currentSlide: number;
   onSend: (text: string, scope: "slide" | "deck") => void;
 };
 
-export function GeniePanel({ messages, busy, currentSlide, onSend }: Props) {
+export function PetiPanel({ messages, busy, currentSlide, onSend }: Props) {
   const [text, setText] = useState("");
   const [scope, setScope] = useState<"slide" | "deck">("slide");
   const endRef = useRef<HTMLDivElement>(null);
@@ -35,9 +35,9 @@ export function GeniePanel({ messages, busy, currentSlide, onSend }: Props) {
         {messages.length === 0 && (
           <div className="rounded-2xl border-[1.5px] border-dashed border-line p-4">
             <p className="font-display font-semibold tracking-tight text-2xl leading-tight">
-              Your wish, <span className="text-genie">granted</span>.
+              What should <span className="text-brand">Peti</span> change?
             </p>
-            <p className="mt-1 text-xs text-mute">Make a wish for this slide or the whole deck — Genie reshapes layouts, tone, data and flow.</p>
+            <p className="mt-1 text-xs text-mute">Ask for a change to this slide or the whole deck — Peti reshapes layouts, tone, data and flow.</p>
             <div className="mt-3 flex flex-col gap-1.5">
               {(scope === "slide" ? SUGGESTIONS_SLIDE : SUGGESTIONS_DECK).map((s) => (
                 <button key={s} onClick={() => send(s)} disabled={busy} className="rounded-xl bg-paper-2 px-3 py-2 text-left text-xs font-medium transition hover:bg-ember-soft">
@@ -61,7 +61,7 @@ export function GeniePanel({ messages, busy, currentSlide, onSend }: Props) {
         ))}
         {busy && (
           <div className="flex items-center gap-2 text-xs text-mute">
-            <span className="h-2 w-2 animate-ping rounded-full bg-ember" /> Genie is working its magic…
+            <span className="h-2 w-2 animate-ping rounded-full bg-ember" /> Peti is on it…
           </div>
         )}
         <div ref={endRef} />

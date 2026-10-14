@@ -1,14 +1,14 @@
-# SlideGenie — Ideas to Slides, Instantly
+# PePeTi — Ideas to Slides, Instantly
 
-Describe it, paste it or upload it → shape the **Story map** → get a designed deck → refine it with **Genie** → present or download.
+Describe it, paste it or upload it → shape the **Story map** → get a designed deck → refine it with **Peti**, your slide assistant → present or download.
 
 ## What it does
 
 - **Three ways in** — describe your topic, paste notes, or upload a PDF / DOCX / TXT / MD file.
 - **Story map** — review the narrative card by card (drag, rename, change layouts) before anything is designed.
-- **Genie** — wish for changes in plain words, for one slide or the whole deck. One-tap **Reword · Tighten · Elaborate · Visualize** on each slide.
+- **Peti** — describe changes in plain words, for one slide or the whole deck. One-tap **Reword · Tighten · Elaborate · Visualize** on each slide.
 - **66 themes** — classic styles plus illustrated **3D, Robotic, Science, Futuristic and Abstract** themes, each with a full **preview** before you use it.
-- **Brand Vault & Art Blend** — keep your logo, colors and fonts, and blend any SlideGenie artwork into any theme.
+- **Brand Vault & Art Blend** — keep your logo, colors and fonts, and blend any PePeTi artwork into any theme.
 - **New arrangement** — cycle alternate arrangements of a slide; text auto-fits.
 - **Real charts** — bar, line, pie and doughnut charts that stay editable after download.
 - **Fly-through presenting** — a winding canvas that glides from slide to slide, plus classic full-screen mode and speaker notes.
@@ -58,10 +58,10 @@ Restart `npm run dev` after editing `.env.local`. With no AI configured, the app
 
 | Path | Purpose |
 | --- | --- |
-| `src/app/page.tsx` | Wish (describe / paste / upload) → Story map, library, theme gallery |
-| `src/app/deck/[id]/page.tsx` | Studio: filmstrip, canvas, Genie actions, Content / Design / Genie panels, export, present |
+| `src/app/page.tsx` | Idea (describe / paste / upload) → Story map, library, theme gallery |
+| `src/app/deck/[id]/page.tsx` | Studio: filmstrip, canvas, Peti actions, Content / Design / Peti panels, export, present |
 | `src/app/view/page.tsx` | Read-only viewer for share links |
-| `src/app/api/outline` · `generate` · `revise` · `extract` | Story map, deck generation, Genie edits, document text extraction |
+| `src/app/api/outline` · `generate` · `revise` · `extract` | Story map, deck generation, Peti edits, document text extraction |
 | `src/lib/layout.ts` | Layout engine: slide + theme → positioned shapes, text, images, charts |
 | `src/lib/art.ts` | Procedural SVG artwork for illustrated themes |
 | `src/components/SlideCanvas.tsx` / `src/lib/exportPptx.ts` | The same layout rendered on screen and into the .pptx |

@@ -11,10 +11,10 @@ import { SlideCanvas } from "@/components/SlideCanvas";
 import { SlideEditor } from "@/components/SlideEditor";
 import { TemplateGallery } from "@/components/TemplateGallery";
 import { BrandKit } from "@/components/BrandKit";
-import { GeniePanel, type GenieMsg } from "@/components/GeniePanel";
+import { PetiPanel, type PetiMsg } from "@/components/PetiPanel";
 import { Presenter, type PresentMode } from "@/components/Presenter";
 
-type Tab = "content" | "design" | "genie";
+type Tab = "content" | "design" | "peti";
 
 /** Keep only slides from a partial (streaming) deck that are complete enough to draw. */
 function sanitize(partial: unknown): Deck {
@@ -60,7 +60,7 @@ function Studio() {
   const [designTab, setDesignTab] = useState<"themes" | "brand">("themes");
   const [present, setPresent] = useState<PresentMode | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
-  const [messages, setMessages] = useState<GenieMsg[]>([]);
+  const [messages, setMessages] = useState<PetiMsg[]>([]);
   const [menu, setMenu] = useState<"export" | "present" | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [saved, setSaved] = useState(true);
@@ -212,9 +212,9 @@ function Studio() {
     }
   }
 
-  async function genieSend(text: string, scope: "slide" | "deck") {
+  async function petiSend(text: string, scope: "slide" | "deck") {
     setMessages((m) => [...m, { role: "user", text, scope: scope === "slide" ? `Slide ${idx + 1}` : "Whole deck" }]);
-    setBusy("Genie");
+    setBusy("Peti");
     try {
       const msg = await revise(text, scope === "slide" ? idx : null);
       setMessages((m) => [...m, { role: "ai", text: msg }]);
@@ -387,7 +387,7 @@ function Studio() {
             <div className="w-full max-w-5xl">
               {/* AI action bar */}
               <div className="mb-4 flex flex-wrap items-center gap-1.5 rounded-full border-[1.5px] border-ink bg-card p-1.5 shadow-[3px_3px_0_var(--color-ink)]">
-                <span className="pl-2 pr-1 font-mono text-[11px] uppercase tracking-wide text-mute">Genie</span>
+                <span className="pl-2 pr-1 font-mono text-[11px] uppercase tracking-wide text-mute">Peti</span>
                 {AI_ACTIONS.map((a) => (
                   <button key={a.label} className="ghost-btn flex items-center gap-1" disabled={!active || !!busy || generating} onClick={() => quickAction(a)}>
                     <span className="text-ember">{busy === a.label ? "◌" : a.icon}</span> {a.label}
@@ -423,7 +423,7 @@ function Studio() {
                 {busy && busy !== "Exporting" && active && (
                   <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-paper/60 backdrop-blur-[2px]">
                     <span className="flex items-center gap-2 rounded-full border-[1.5px] border-ink bg-card px-4 py-2 text-sm font-semibold shadow-[3px_3px_0_var(--color-ink)]">
-                      <span className="h-2 w-2 animate-ping rounded-full bg-ember" /> {busy === "Genie" ? "Genie is working its magic" : `${busy}…`}
+                      <span className="h-2 w-2 animate-ping rounded-full bg-ember" /> {busy === "Peti" ? "Peti is on it" : `${busy}…`}
                     </span>
                   </div>
                 )}
@@ -455,7 +455,7 @@ function Studio() {
                 [
                   ["content", "Content"],
                   ["design", "Design"],
-                  ["genie", "✦ Genie"],
+                  ["peti", "✦ Ask Peti"],
                 ] as const
               ).map(([t, label]) => (
                 <button key={t} onClick={() => setTab(t)} className={`py-3 text-sm font-semibold transition ${tab === t ? "bg-ink text-paper" : "text-ink-2 hover:bg-paper-2"}`}>
@@ -489,7 +489,7 @@ function Studio() {
                   )}
                 </div>
               )}
-              {tab === "genie" && <GeniePanel messages={messages} busy={busy === "Genie"} currentSlide={idx} onSend={genieSend} />}
+              {tab === "peti" && <PetiPanel messages={messages} busy={busy === "Peti"} currentSlide={idx} onSend={petiSend} />}
             </div>
           </aside>
         </div>
